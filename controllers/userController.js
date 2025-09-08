@@ -58,7 +58,10 @@ exports.forgotPassword = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ email }).orFail();
+    const user = await User.findOne({ where: { email: email } });
+    if (!user) {
+      throw new Error('User not found');
+    }
     const token = jwt.sign(
       { password: user.password },
       process.env.JWT_SECRET,
