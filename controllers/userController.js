@@ -54,8 +54,7 @@ exports.forgotPassword = async (req, res) => {
 
   if (!email) {
     console.log('Email is required');
-    res.status(400);
-    throw new Error('Email is required');
+    res.status(400).json({ error: 'Email is required' });
   }
 
   try {
@@ -81,8 +80,7 @@ exports.resetPassword = async (req, res) => {
   const { password } = req.body;
   if (!password) {
     console.log('Password is required');
-    res.status(400);
-    throw new Error('Password is required');
+    res.status(400).json({ error: 'Password is required' });
   }
 
   const { userId, token } = req.params;
@@ -94,8 +92,7 @@ exports.resetPassword = async (req, res) => {
     );
     if (decoded.password !== user.password) {
       console.log('Invalid token');
-      res.status(400);
-      throw new Error('Invalid token');
+      res.status(400).json({ error: 'Invalid token' });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
