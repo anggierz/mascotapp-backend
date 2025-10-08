@@ -6,6 +6,10 @@ const petRoutes = require('./routes/petRoutes');
 
 const app = express();
 
+app.get('/sanity', (req, res) => {
+	res.json({ status: 'ok', message: 'Backend is running' });
+});
+
 app.use(express.json());
 app.use(helmet());
 
